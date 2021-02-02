@@ -1,0 +1,5 @@
+.char:nth-child(1),
+.char:nth-child(2),
+.char:nth-child(3) {
+    margin-right: 10px;
+}
