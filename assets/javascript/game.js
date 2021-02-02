@@ -54,11 +54,54 @@ var myRpg = {
         })
     },
 
-    handleCharSelect: function () {
+    handleCharSelect: function (charId) {
+        $(".characters").empty();
+        $(".enemies").empty();
         this.characters.forEach(character => {
-            if (charId === character.id) {
+            if (charId == character.id) {
                 this.userHero = character;
+                console.log("====================Hero====================");
                 console.log(character);
+                console.log("============================================");
+                var charDiv = $("<div>");
+                var charImg = $("<img>");
+                var charName = $("<h1>");
+                var charStats = $("<h2>");
+                $(charDiv).addClass("col-md-3 hero");
+                $(charName).text(character.name);
+                $(charStats).text(character.power);
+                charDiv.attr("id", character.id);
+                charDiv.css("position", "relative");
+                charName.css({ "position": "absolute", "top": 200, "color": "yellow", "text-align": "center" });
+                charStats.css({ "position": "absolute", "top": 0, "color": "red", "text-align": "center" });
+                charImg.attr({ "src": character.image, "alt": character.name });
+                charImg.css({ "height": "300", "width": "175" });
+                charDiv.append(charImg);
+                charDiv.append(charName);
+                charDiv.append(charStats);
+                $(".characters").append(charDiv);
+                $(".character-name").text("");
+            } else {
+                console.log("====================Enemy===================");
+                console.log(character);
+                console.log("============================================");
+                var charDiv = $("<div>");
+                var charImg = $("<img>");
+                var charName = $("<h1>");
+                var charStats = $("<h2>");
+                $(charDiv).addClass("col-md-3 hero");
+                $(charName).text(character.name);
+                $(charStats).text(character.power);
+                charDiv.attr("id", character.id);
+                charDiv.css("position", "relative");
+                charName.css({ "position": "absolute", "top": 200, "color": "yellow", "text-align": "center" });
+                charStats.css({ "position": "absolute", "top": 0, "color": "red", "text-align": "center" });
+                charImg.attr({ "src": character.image, "alt": character.name });
+                charImg.css({ "height": "300", "width": "175" });
+                charDiv.append(charImg);
+                charDiv.append(charName);
+                charDiv.append(charStats);
+                $(".enemies").append(charDiv);
             }
         })
     }
@@ -68,6 +111,6 @@ $(document).ready(function () {
     myRpg.displayCharacters();
     $(".hero").on("click", function () {
         var charId = $(this).attr("id");
-        console.log(charId);
+        myRpg.handleCharSelect(charId);
     })
 })
