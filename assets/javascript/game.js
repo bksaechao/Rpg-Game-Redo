@@ -12,7 +12,7 @@ var myRpg = {
             id: "dante",
             name: "Dante",
             image: "assets/images/dante.png",
-            health: 200,
+            health: 130,
             power: 10,
             isEnemy: false
         },
@@ -59,17 +59,17 @@ var myRpg = {
         })
     },
 
-    handleQuery: function(charId) {
-        this.handleCharSelect(charId);
-        this.handleBattle(charId);
+    handleQuery: function(charData) {
+        this.handleCharSelect(charData);
+        this.handleBattle(charData);
     },
 
-    handleCharSelect: function (charId) {
+    handleCharSelect: function (charData) {
         if (!this.isBattling){
             $(".characters").empty();
             // $(".enemies").empty();
             this.characters.forEach(character => {
-                if (charId == character.id) {
+                if (charData.attr("id") == character.id) {
                     this.userHero = character;
                     console.log("====================Hero====================");
                     console.log(this.userHero);
@@ -122,12 +122,12 @@ var myRpg = {
         }
     },
 
-    handleBattle: function (charId) {
+    handleBattle: function (charData) {
         if (this.isBattling) {
             this.characters.forEach(character => {
-                if (charId === character.id && character.isEnemy) {
-                    // character.health -= this.userHero.power;
-                    console.log(character);
+                if (charData.attr("id") === character.id && character.isEnemy) {
+                    character.health -= this.userHero.power;
+                    $(charData).children("h2").text(character.health);
                 }
             })
         }
@@ -136,10 +136,9 @@ var myRpg = {
 
 $(document).ready(function () {
     myRpg.displayCharacters();
-    var charId
+    var charData;
     $(document).on('click', ".hero", function() {
-        charId = $(this).attr("id");
-        console.log(charId);
-        myRpg.handleQuery(charId);
+        charData = $(this)
+        myRpg.handleQuery(charData);
     })
 });
