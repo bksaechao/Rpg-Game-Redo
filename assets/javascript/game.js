@@ -128,11 +128,19 @@ var myRpg = {
                 if (charData.attr("id") === character.id && character.isEnemy) {
                     character.health -= this.userHero.power;
                     this.userHero.health -= character.power;
+                    this.checkHealth(character);
                     $(charData).children("h2").text(character.health);
                     $(".hero").children("h2").text(this.userHero.health);
                 }
             })
         }
+    },
+
+    checkHealth: function(character) {
+        console.log(
+            character.name + ": " + character.health + "\n" +
+            this.userHero.name + ": " + this.userHero.health
+            );
     }
 };
 
