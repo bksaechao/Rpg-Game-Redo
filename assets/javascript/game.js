@@ -43,7 +43,7 @@ var myRpg = {
             var charImg = $("<img>");
             var charName = $("<h3>");
             var charStats = $("<h2>");
-            $(charDiv).addClass("col-md-2 hero");
+            $(charDiv).addClass("col-md-2 character");
             $(charName).text(character.name);
             $(charStats).text(character.health);
             charDiv.attr("id", character.id);
@@ -78,7 +78,7 @@ var myRpg = {
                     var charImg = $("<img>");
                     var charName = $("<h3>");
                     var charStats = $("<h2>");
-                    $(charDiv).addClass("col-md-3 hero");
+                    $(charDiv).addClass("col-md-3 character hero");
                     $(charName).text(character.name);
                     $(charStats).text(character.health);
                     charDiv.attr("id", character.id);
@@ -101,7 +101,7 @@ var myRpg = {
                     var charImg = $("<img>");
                     var charName = $("<h3>");
                     var charStats = $("<h2>");
-                    $(charDiv).addClass("col-md-3 hero");
+                    $(charDiv).addClass("col-md-3 character enemy");
                     $(charName).text(character.name);
                     $(charStats).text(character.health);
                     charStats.attr("class", "char-stats")
@@ -127,7 +127,9 @@ var myRpg = {
             this.characters.forEach(character => {
                 if (charData.attr("id") === character.id && character.isEnemy) {
                     character.health -= this.userHero.power;
+                    this.userHero.health -= character.power;
                     $(charData).children("h2").text(character.health);
+                    $(".hero").children("h2").text(this.userHero.health);
                 }
             })
         }
@@ -137,7 +139,7 @@ var myRpg = {
 $(document).ready(function () {
     myRpg.displayCharacters();
     var charData;
-    $(document).on('click', ".hero", function() {
+    $(document).on('click', ".character", function() {
         charData = $(this)
         myRpg.handleQuery(charData);
     })
