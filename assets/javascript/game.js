@@ -13,7 +13,7 @@ var myRpg = {
             name: "Dante",
             image: "assets/images/dante.png",
             health: 130,
-            power: 10,
+            power: 50,
             isEnemy: false
         },
         samuraiJack = {
@@ -59,15 +59,15 @@ var myRpg = {
         })
     },
 
-    handleQuery: function(charData) {
+    handleQuery: function (charData) {
         this.handleCharSelect(charData);
         this.handleBattle(charData);
     },
 
     handleCharSelect: function (charData) {
-        if (!this.isBattling){
+        if (!this.isBattling) {
             $(".characters").empty();
-            // $(".enemies").empty();
+            $(".enemies").empty();
             this.characters.forEach(character => {
                 if (charData.attr("id") == character.id) {
                     this.userHero = character;
@@ -118,7 +118,7 @@ var myRpg = {
                     $(".enemies-name").text("Enemies");
                 }
             });
-            this.isBattling = true;        
+            this.isBattling = true;
         }
     },
 
@@ -128,7 +128,8 @@ var myRpg = {
                 if (charData.attr("id") === character.id && character.isEnemy) {
                     character.health -= this.userHero.power;
                     this.userHero.health -= character.power;
-                    this.checkHealth(character);
+                    this.checkHealth(character, charData);
+                    this.checkBattleResults();
                     $(charData).children("h2").text(character.health);
                     $(".hero").children("h2").text(this.userHero.health);
                 }
@@ -136,19 +137,41 @@ var myRpg = {
         }
     },
 
-    checkHealth: function(character) {
+    checkHealth: function (character, charData) {
         console.log(
             character.name + ": " + character.health + "\n" +
             this.userHero.name + ": " + this.userHero.health
-            );
+        );
+        if (this.userHero.health <= 0) {
+            $(".character-name").text("GAME OVER");
+            this.restartBattle();
+        } else if (character.health <= 0) {
+            $(".enemies-name").text("You defeated " + character.name);
+            charData.remove();
+        }
+    },
+
+    checkBattleResults: function () {
+        if ($(".enemies").children().length === 0) {
+            $(".enemies-name").text("WINNER");
+            this.restartBattle();
+        }
+    },
+
+    restartBattle: function () {
+        var btn = $("<button>")
+        btn.attr("id", "restart-button")
+        btn.text("Retry?")
+        $(".characters").append(btn);
     }
 };
 
 $(document).ready(function () {
     myRpg.displayCharacters();
     var charData;
-    $(document).on('click', ".character", function() {
+    $(document).on('click', ".character", function () {
         charData = $(this)
         myRpg.handleQuery(charData);
+        console.log($(".enemies").children().length);
     })
 });
