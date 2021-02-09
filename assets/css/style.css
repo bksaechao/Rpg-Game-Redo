@@ -3,3 +3,7 @@
 .char:nth-child(3) {
     margin-right: 10px;
 }
+
+.enemies {
+    visibility: hidden;
+}
