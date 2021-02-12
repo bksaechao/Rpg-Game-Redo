@@ -63,9 +63,17 @@ var myRpg = {
         })
     },
 
-    handleQuery: function (charData) {
+    handleCharacter: function (charData) {
         this.handleCharSelect(charData);
         this.handleBattle(charData);
+    },
+
+    handleItem: function (itemData) {
+        if (itemData.hasClass("potion")) {
+            this.boostHp(itemData);
+        } else if (itemData.hasClass("atk-boost")) {
+            this.boostAtk(itemData);
+        }
     },
 
     createHero: function (character) {
@@ -78,11 +86,11 @@ var myRpg = {
         $(charName).text(character.name);
         $(charStats).text(character.health);
         $(charStats).attr("class", "hero-stats")
-        charDiv.attr("id", character.id);
+        // charDiv.attr("id", character.id);
         charDiv.css("position", "relative");
         charName.css({ "position": "absolute", "top": 180, "color": "purple", "text-align": "center" });
         charStats.css({ "position": "absolute", "top": 0, "color": "red", "text-align": "center" });
-        charImg.attr({ "src": character.image, "alt": character.name });
+        charImg.attr({ "src": character.image, "alt": character.name, "class": "hero-img" });
         charImg.css({ "height": "225", "width": "150" });
         charDiv.append(charImg);
         charDiv.append(charName);
@@ -116,10 +124,10 @@ var myRpg = {
         navItemOne.addClass("nav-item");
         navItemTwo.addClass("nav-item");
         navPotion.addClass("nav-link potion");
-        navPotion.attr({"href":"#", "onClick":"myRpg.boostHp()"});
+        navPotion.attr("href", "#");
         navPotion.text("Potion");
-        navAtkBoost.addClass("nav-link attack-boost");
-        navAtkBoost.attr({"href":"#", "onClick":"myRpg.boostAtk()"});
+        navAtkBoost.addClass("nav-link atk-boost");
+        navAtkBoost.attr("href", "#");
         navAtkBoost.text("Atk Boost");
         aBtn.append(aBtnIcon);
         navItemOne.append(navPotion);
@@ -180,7 +188,6 @@ var myRpg = {
                 if (charData.attr("id") === character.id && character.isEnemy) {
                     character.health -= this.userHero.power;
                     this.userHero.health -= character.counterAtk;
-                    // this.attackEnemy(charData);
                     this.checkHealth(character, charData);
                     this.checkBattleResults(character);
                     $(charData).children("h2").text(character.health);
@@ -204,6 +211,7 @@ var myRpg = {
             charData.fadeOut(function () {
                 charData.remove();
             });
+            this.createAtkBoost();
         }
     },
 
@@ -218,15 +226,31 @@ var myRpg = {
         }
     },
 
-    boostAtk: function () {
-        this.userHero.power += 100;
-        console.log("Hero Power: " + this.userHero.power);
+    createAtkBoost: function () {
+        var navItem = $("<li>");
+        var navPotion = $("<a>");
+        navItem.addClass("nav-item");
+        navPotion.addClass("nav-link potion");
+        navPotion.attr("href", "#");
+        navPotion.text("Potion");
+        navItem.append(navPotion);
+        $(".navbar-nav").append(navItem);
     },
 
-    boostHp: function() {
+    boostAtk: function (itemData) {
+        this.userHero.power += 100;
+        console.log("Hero Power: " + this.userHero.power);
+        $(".hero-img").css("border", "1px solid red");
+        console.log(itemData);
+        itemData.remove();
+    },
+
+    boostHp: function (itemData) {
         this.userHero.health += 30;
         console.log("Hero Health: " + this.userHero.health);
-        $(".hero-stats").text(this.userHero.health); 
+        $(".hero-stats").text(this.userHero.health);
+        console.log(itemData);
+        itemData.remove();
     },
 
     restartBattle: function () {
@@ -240,8 +264,15 @@ var myRpg = {
 $(document).ready(function () {
     myRpg.displayCharacters();
     var charData;
+    var itemData;
+
     $(document).on("click", ".character", function () {
-        charData = $(this)
-        myRpg.handleQuery(charData);
+        charData = $(this);
+        myRpg.handleCharacter(charData);
     });
+
+    $(document).on("click", ".nav-link", function () {
+        itemData = $(this);
+        myRpg.handleItem(itemData);
+    })
 });
