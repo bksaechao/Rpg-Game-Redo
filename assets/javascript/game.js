@@ -69,9 +69,9 @@ var myRpg = {
     },
 
     handleItem: function (itemData) {
-        if (itemData.hasClass("potion")) {
+        if (itemData.hasClass("potion") && $("#restart-btn").length === 0) {
             this.boostHp(itemData);
-        } else if (itemData.hasClass("atk-boost")) {
+        } else if (itemData.hasClass("atk-boost") && $("#restart-btn").length === 0) {
             this.boostAtk(itemData);
         }
     },
@@ -167,7 +167,7 @@ var myRpg = {
     },
 
     handleCharSelect: function (charData) {
-        if (!this.isBattling) {
+        if (!this.isBattling && $("#restart-btn").length === 0) {
             $(".characters").empty();
             $(".enemies").empty();
             this.characters.forEach(character => {
@@ -204,29 +204,26 @@ var myRpg = {
         );
         if (this.userHero.health <= 0) {
             $(".character-name").text("GAME OVER");
-            alert("YOU LOSE!");
-            window.location.reload();
+            this.isBattling = false;
+            this.restartBattle();
         } else if (character.health <= 0) {
             $(".enemies-name").text("You defeated " + character.name);
-            charData.fadeOut(function () {
-                charData.remove();
-            });
-            this.createAtkBoost();
+            charData.remove();
+            this.createPotion();
         }
     },
 
     checkBattleResults: function (character) {
         if ($(".enemies").children().length === 0) {
             $(".enemies-name").text("WINNER");
+            this.isBattling = false;
             this.restartBattle();
         } else if ($(".enemies-name").text().includes(character.name)) {
-            setTimeout(function () {
-                $(".enemies-name").text("Enemies");
-            }, 800);
+            $(".enemies-name").text("Enemies");
         }
     },
 
-    createAtkBoost: function () {
+    createPotion: function () {
         var navItem = $("<li>");
         var navPotion = $("<a>");
         navItem.addClass("nav-item");
