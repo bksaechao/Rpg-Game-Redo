@@ -1,9 +1,9 @@
 var myRpg = {
     characters: [
-        afroSamurai = {
-            id: "afro-samurai",
-            name: "Afro Samurai",
-            image: "assets/images/afroSamurai.jpg",
+        mugenImg = {
+            id: "mugen",
+            name: "Mugen",
+            image: "assets/images/mugen.png",
             health: 160,
             power: 10,
             counterAtk: 40,
@@ -29,7 +29,7 @@ var myRpg = {
         },
         vashTheStampede = {
             id: "vash",
-            name: "Vash The Stampede",
+            name: "Vash",
             image: "assets/images/vash.png",
             health: 180,
             power: 10,
@@ -112,6 +112,7 @@ var myRpg = {
         var navPotion = $("<a>");
         var navAtkBoost = $("<a>");
         itemNav.addClass("navbar col-md-9 navbar-expand-lg navbar-light bg-light");
+        itemNav.css("opacity","0.7")
         navDiv.addClass("container-fluid");
         aNav.addClass("navbar-brand");
         aNav.text("Items");
@@ -218,9 +219,10 @@ var myRpg = {
             $(".enemies-name").text("WINNER");
             this.isBattling = false;
             this.restartBattle();
-        } else if ($(".enemies-name").text().includes(character.name)) {
-            $(".enemies-name").text("Enemies");
-        }
+        } 
+        // else if ($(".enemies-name").text().includes(character.name)) {
+        //     $(".enemies-name").text("Enemies");
+        // }
     },
 
     createPotion: function () {
