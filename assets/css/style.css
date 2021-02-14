@@ -1,5 +1,5 @@
 body {
-    background: url("../images/animeBackground.jpg");
+    background: url("../images/anime.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -10,11 +10,15 @@ body {
     margin-right: 10px;
 }
 
-.character-name,
-.enemies-name {
-    color: rgb(247, 247, 138);
+.enemies-name,
+.character-name {
+    color: rgb(219, 158, 26);
+    background: darkslateblue;
+    border: 5px ridge burlywood;
+    opacity: 0.9;
 }
 
 .enemies {
     visibility: hidden;
+    color: rgb(10, 221, 21)
 }

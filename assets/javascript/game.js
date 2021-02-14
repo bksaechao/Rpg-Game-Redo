@@ -18,10 +18,10 @@ var myRpg = {
             counterAtk: 50,
             isEnemy: false
         },
-        samuraiJack = {
-            id: "samurai-jack",
-            name: "Samurai Jack",
-            image: "assets/images/samuraiJack.png",
+        mojoJojo = {
+            id: "mojo-jojo",
+            name: "Mojo Jojo",
+            image: "assets/images/mojoJojo.png",
             health: 150,
             power: 10,
             counterAtk: 30,
@@ -52,8 +52,8 @@ var myRpg = {
             $(charStats).text(character.health);
             charDiv.attr("id", character.id);
             charDiv.css("position", "relative");
-            charName.css({ "position": "absolute", "top": 180, "color": "purple", "text-align": "center" });
-            charStats.css({ "position": "absolute", "top": 0, "color": "red", "text-align": "center" });
+            charName.css({ "position": "absolute", "top": 180, "color": "rgb(240, 144, 20)", "text-align": "center" });
+            charStats.css({ "position": "absolute", "top": 0, "color": "rgb(10, 221, 21)", "text-align": "center" });
             charImg.attr({ "src": character.image, "alt": character.name });
             charImg.css({ "height": "225", "width": "150" });
             charDiv.append(charImg);
@@ -88,8 +88,8 @@ var myRpg = {
         $(charStats).attr("class", "hero-stats")
         // charDiv.attr("id", character.id);
         charDiv.css("position", "relative");
-        charName.css({ "position": "absolute", "top": 180, "color": "purple", "text-align": "center" });
-        charStats.css({ "position": "absolute", "top": 0, "color": "red", "text-align": "center" });
+        charName.css({ "position": "absolute", "top": 180, "color": "rgb(240, 144, 20)", "text-align": "center", });
+        charStats.css({ "position": "absolute", "top": 0, "color": "rgb(10, 221, 21)", "text-align": "center" });
         charImg.attr({ "src": character.image, "alt": character.name, "class": "hero-img" });
         charImg.css({ "height": "225", "width": "150" });
         charDiv.append(charImg);
@@ -155,8 +155,8 @@ var myRpg = {
         charStats.attr("class", "char-stats")
         charDiv.attr("id", character.id);
         charDiv.css("position", "relative");
-        charName.css({ "position": "absolute", "top": 180, "color": "purple", "text-align": "center" });
-        charStats.css({ "position": "absolute", "top": 0, "color": "red", "text-align": "center" });
+        charName.css({ "position": "absolute", "top": 180, "color": "rgb(240, 144, 20)", "text-align": "center" });
+        charStats.css({ "position": "absolute", "top": 0, "color": "rgb(10, 221, 21)", "text-align": "center" });
         charImg.attr({ "src": character.image, "alt": character.name });
         charImg.css({ "height": "225", "width": "150" });
         charDiv.append(charImg);
@@ -220,9 +220,6 @@ var myRpg = {
             this.isBattling = false;
             this.restartBattle();
         } 
-        // else if ($(".enemies-name").text().includes(character.name)) {
-        //     $(".enemies-name").text("Enemies");
-        // }
     },
 
     createPotion: function () {
