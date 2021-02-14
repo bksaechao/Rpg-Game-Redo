@@ -4,7 +4,7 @@ var myRpg = {
             id: "mugen",
             name: "Mugen",
             image: "assets/images/mugen.png",
-            health: 160,
+            health: 150,
             power: 10,
             counterAtk: 40,
             isEnemy: false
@@ -13,7 +13,7 @@ var myRpg = {
             id: "dante",
             name: "Dante",
             image: "assets/images/dante.png",
-            health: 130,
+            health: 120,
             power: 10,
             counterAtk: 50,
             isEnemy: false
@@ -22,7 +22,7 @@ var myRpg = {
             id: "mojo-jojo",
             name: "Mojo Jojo",
             image: "assets/images/mojoJojo.png",
-            health: 150,
+            health: 140,
             power: 10,
             counterAtk: 30,
             isEnemy: false
@@ -31,7 +31,7 @@ var myRpg = {
             id: "vash",
             name: "Vash",
             image: "assets/images/vash.png",
-            health: 180,
+            health: 160,
             power: 10,
             counterAtk: 20,
             isEnemy: false
@@ -112,7 +112,7 @@ var myRpg = {
         var navPotion = $("<a>");
         var navAtkBoost = $("<a>");
         itemNav.addClass("navbar col-md-9 navbar-expand-lg navbar-light bg-light");
-        itemNav.css("opacity","0.7")
+        itemNav.css("opacity", "0.7")
         navDiv.addClass("container-fluid");
         aNav.addClass("navbar-brand");
         aNav.text("Items");
@@ -163,8 +163,9 @@ var myRpg = {
         charDiv.append(charName);
         charDiv.append(charStats);
         $(".enemies").append(charDiv);
-        $(".enemies").css("visibility", "initial")
+        $(".enemies").css("visibility", "initial");
         $(".enemies-name").text("Enemies");
+        $(".enemies-name").css("visibility", "initial");
     },
 
     handleCharSelect: function (charData) {
@@ -199,10 +200,6 @@ var myRpg = {
     },
 
     checkHealth: function (character, charData) {
-        console.log(
-            character.name + ": " + character.health + "\n" +
-            this.userHero.name + ": " + this.userHero.health
-        );
         if (this.userHero.health <= 0) {
             $(".character-name").text("GAME OVER");
             this.isBattling = false;
@@ -217,9 +214,10 @@ var myRpg = {
     checkBattleResults: function (character) {
         if ($(".enemies").children().length === 0) {
             $(".enemies-name").text("WINNER");
+            $(".enemies").css("visibility", "hidden");
             this.isBattling = false;
             this.restartBattle();
-        } 
+        }
     },
 
     createPotion: function () {
@@ -235,17 +233,13 @@ var myRpg = {
 
     boostAtk: function (itemData) {
         this.userHero.power += 100;
-        console.log("Hero Power: " + this.userHero.power);
         $(".hero-img").css("border", "1px solid red");
-        console.log(itemData);
         itemData.remove();
     },
 
     boostHp: function (itemData) {
         this.userHero.health += 30;
-        console.log("Hero Health: " + this.userHero.health);
         $(".hero-stats").text(this.userHero.health);
-        console.log(itemData);
         itemData.remove();
     },
 

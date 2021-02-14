@@ -18,7 +18,7 @@ body {
     opacity: 0.9;
 }
 
-.enemies {
+.enemies,
+.enemies-name {
     visibility: hidden;
-    color: rgb(10, 221, 21)
 }
