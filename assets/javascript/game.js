@@ -201,7 +201,7 @@ var myRpg = {
 
     checkHealth: function (character, charData) {
         if (this.userHero.health <= 0) {
-            $(".character-name").text("GAME OVER");
+            $(".enemies-name").text("GAME OVER");
             this.isBattling = false;
             this.restartBattle();
         } else if (character.health <= 0) {
